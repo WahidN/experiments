@@ -1,0 +1,20 @@
+{
+  "name": "infinite-webgl-gallery",
+  "version": "1.0.0",
+  "description": "Experiment with webGL",
+  "main": "app.js",
+  "source": "index.html",
+  "scripts": {
+    "start": "parcel"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "normalize-wheel": "^1.0.1",
+    "ogl": "^0.0.77"
+  },
+  "devDependencies": {
+    "@parcel/transformer-glsl": "^2.0.1",
+    "parcel": "^2.0.1"
+  }
+}
