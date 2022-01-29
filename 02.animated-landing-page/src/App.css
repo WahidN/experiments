@@ -1,0 +1,99 @@
+:root {
+  --font-heading: 'Yeseva One', cursive;
+  --font-body: 'Josefin Sans', sans-serif;
+
+  --color-primary: #7D2EF8;
+  --color-secondary: #FCFB16;
+  --color-tertiary: #c0eaf6;
+  --color-dark-blue: #001190;
+
+  --container-max-width: 1284px;
+}
+
+body, html {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-primary);
+  overflow-x: hidden;
+}
+
+h1,h2,h3 {
+  font-family: var(--font-heading);
+}
+
+header, main {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  width: 100%;
+}
+
+header {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 0;
+  color: white;
+}
+
+header nav ul {
+  display: flex;
+  list-style-type: none;
+}
+
+header nav ul li {
+  margin-left: 32px;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+header nav ul li::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-bottom: 1px;
+  margin-right: 6px;
+}
+
+main {
+  margin-top: 112px;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 200px;
+  color: var(--color-secondary)
+}
+
+.title span {
+  display: inline-block;
+  transform: translateY(200px);
+}
+
+.arcadeMachine {
+  background-color: #1c1b2a;
+  border-radius: 50px;
+  height: 100vh;
+  transform: scale(3);
+  overflow: hidden;
+  background-size: 300px;
+  background-repeat: repeat;
+  background-position: center center;
+}
