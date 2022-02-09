@@ -115,10 +115,97 @@ function App() {
               <div className="buttonWrap">
                 <button>Let's play!</button>
               </div>
+              <div className="numbers">
+                <div className="number">
+                  <h2 className="bigTitle">25</h2>
+                  <span>Arcade Machines</span>
+                </div>
+                <div className="number">
+                  <h2 className="bigTitle">15</h2>
+                  <span>Pinball Machines</span>
+                </div>
+              </div>
             </div>
           </section>
           <section data-theme="secondary">
-            <h2>Schedule</h2>
+            <ul className="calendar">
+              <li>
+                <span>Mo</span>
+                <span>30.08</span>
+              </li>
+              <li>
+                <span>Tu</span>
+                <span>31.08</span>
+              </li>
+              <li>
+                <span>We</span>
+                <span>30.08</span>
+              </li>
+              <li>
+                <span>Th</span>
+                <span>01.09</span>
+              </li>
+              <li>
+                <span>Fr</span>
+                <span>02.09</span>
+              </li>
+              <li>
+                <span>Sa</span>
+                <span>03.09</span>
+              </li>
+              <li>
+                <span>Su</span>
+                <span>04.09</span>
+              </li>
+            </ul>
+            <h2 className="bigTitle">Schedule</h2>
+            <div className="grid">
+              <div className="item">
+                <div className="itemImage">
+                  <img
+                    src="https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80"
+                    alt=""
+                  />
+                </div>
+                <div className="itemInfo">
+                  <div className="date">
+                    <span>Mon</span>
+                    <span>30</span>
+                  </div>
+                    <h3 className="itemTitle">Belles & Chimes Women's Pinball Meetup</h3>
+                </div>
+              </div>
+              <div className="item">
+                <div className="itemImage">
+                  <img
+                    src="https://images.unsplash.com/photo-1625805866449-3589fe3f71a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3987&q=80"
+                    alt=""
+                  />
+                </div>
+                <div className="itemInfo">
+                  <div className="date">
+                    <span>Wed</span>
+                    <span>01</span>
+                  </div>
+                  <h3 className="itemTitle">Vintage Gaming Night</h3>
+                </div>
+              </div>
+              <div className="item">
+                <div className="itemImage">
+                  <img
+                    src="https://images.unsplash.com/photo-1627845885979-1a274684a4ac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGFyY2FkZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60"
+                    alt=""
+                  />
+                </div>
+                <div className="itemInfo">
+                  <div className="date">
+                    <span>Fri</span>
+                    <span>03</span>
+                  </div>
+                  <h3 className="itemTitle">Two Bit Movie Club Arcade</h3>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </main>
