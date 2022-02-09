@@ -1,6 +1,24 @@
+@font-face {
+  font-family: 'Beatrice Display';
+  src: local('Beatrice Display'), url(./assets/fonts/BeatriceDisplayBlack.otf) format('opentype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'Beatrice Display';
+  src: local('Beatrice Display'), url(./assets/fonts/BeatriceDisplayBold.otf) format('opentype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Beatrice Display';
+  src: local('Beatrice Display'), url(./assets/fonts/BeatriceDisplayRegular.otf) format('opentype');
+  font-weight: 400;
+}
+
+
 :root {
-  --font-heading: "Yeseva One", cursive;
-  --font-body: "Josefin Sans", sans-serif;
+  --font-family: "Beatrice Display", cursive;
 
   --color-primary: #7d2ef8;
   --color-secondary: #fcfb16;
@@ -15,16 +33,10 @@ body,
 html {
   padding: 0;
   margin: 0;
-  font-family: var(--font-body);
+  font-family: var(--font-family);
   background-color: var(--color-primary);
   overflow-x: hidden;
   scroll-snap-type: y proximity;
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
 }
 
 header,
@@ -144,10 +156,10 @@ section:last-of-type {
 .buttonWrap button {
   background-color: var(--color-secondary);
   padding: 18px 64px;
+  font-weight: 600;
   font-size: 22px;
-  font-family: var(--font-heading);
   border: none;
-  color: var(--color-dark-green)
+  color: var(--color-dark-green);
 }
 
 .buttonWrap button::before {
