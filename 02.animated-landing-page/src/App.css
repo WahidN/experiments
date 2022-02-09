@@ -5,7 +5,8 @@
   --color-primary: #7d2ef8;
   --color-secondary: #fcfb16;
   --color-tertiary: #c0eaf6;
-  --color-dark-blue: #001190;
+  --color-dark-blue: #050197;
+  --color-dark-green: #1B4024;
 
   --container-max-width: 1284px;
 }
@@ -146,6 +147,7 @@ section:last-of-type {
   font-size: 22px;
   font-family: var(--font-heading);
   border: none;
+  color: var(--color-dark-green)
 }
 
 .buttonWrap button::before {
@@ -169,11 +171,11 @@ body[data-theme="primary"] {
 body[data-theme="tertiary"] {
   background-color: var(--color-tertiary);
   transition: backgroundColor 0.5s ease-out;
-  color: black;
+  color: var(--color-dark-blue);
 }
 
 body[data-theme="secondary"] {
   background-color: var(--color-secondary);
   transition: backgroundColor 0.5s ease-out;
-  color: black;
+  color: var(--color-dark-green);
 }
