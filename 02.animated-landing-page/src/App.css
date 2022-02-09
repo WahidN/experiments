@@ -1,28 +1,33 @@
 :root {
-  --font-heading: 'Yeseva One', cursive;
-  --font-body: 'Josefin Sans', sans-serif;
+  --font-heading: "Yeseva One", cursive;
+  --font-body: "Josefin Sans", sans-serif;
 
-  --color-primary: #7D2EF8;
-  --color-secondary: #FCFB16;
+  --color-primary: #7d2ef8;
+  --color-secondary: #fcfb16;
   --color-tertiary: #c0eaf6;
   --color-dark-blue: #001190;
 
   --container-max-width: 1284px;
 }
 
-body, html {
+body,
+html {
   padding: 0;
   margin: 0;
   font-family: var(--font-body);
   background-color: var(--color-primary);
   overflow-x: hidden;
+  scroll-snap-type: y proximity;
 }
 
-h1,h2,h3 {
+h1,
+h2,
+h3 {
   font-family: var(--font-heading);
 }
 
-header, main {
+header,
+main {
   display: flex;
   justify-content: center;
 }
@@ -30,6 +35,7 @@ header, main {
 .container {
   max-width: var(--container-max-width);
   width: 100%;
+  position: relative;
 }
 
 header {
@@ -45,7 +51,7 @@ header nav {
   align-items: center;
   justify-content: space-between;
   padding: 32px 0;
-  color: white;
+  color: inherit;
 }
 
 header nav ul {
@@ -73,13 +79,23 @@ header nav ul li::before {
 
 main {
   margin-top: 112px;
+  position: relative;
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+}
+
+section:last-of-type {
+  height: 85vh;
 }
 
 .title {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 200px;
-  color: var(--color-secondary)
+  color: var(--color-secondary);
 }
 
 .title span {
@@ -88,12 +104,76 @@ main {
 }
 
 .arcadeMachine {
+  z-index: 10;
+  position: absolute;
+  top: 230px;
+  right: 0;
   background-color: #1c1b2a;
   border-radius: 50px;
-  height: 100vh;
+  height: 800px;
+  width: 100%;
   transform: scale(3);
   overflow: hidden;
   background-size: 300px;
   background-repeat: repeat;
   background-position: center center;
+}
+
+.intro {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.intro h2 {
+  flex: 1;
+  max-width: 50%;
+  font-size: 34px;
+  margin-top: 100px;
+}
+
+.buttonWrap {
+  position: absolute;
+  z-index: 11;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.buttonWrap button {
+  background-color: var(--color-secondary);
+  padding: 18px 64px;
+  font-size: 22px;
+  font-family: var(--font-heading);
+  border: none;
+}
+
+.buttonWrap button::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: var(--color-secondary);
+  height: 40px;
+  width: 100%;
+  border-radius: 50% 50% 0 0;
+}
+
+body[data-theme="primary"] {
+  background-color: var(--color-primary);
+  transition: backgroundColor 0.5s ease-out;
+  color: white;
+}
+
+body[data-theme="tertiary"] {
+  background-color: var(--color-tertiary);
+  transition: backgroundColor 0.5s ease-out;
+  color: black;
+}
+
+body[data-theme="secondary"] {
+  background-color: var(--color-secondary);
+  transition: backgroundColor 0.5s ease-out;
+  color: black;
 }

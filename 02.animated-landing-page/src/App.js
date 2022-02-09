@@ -1,7 +1,8 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { timeline, stagger, animate } from "motion";
 import gif from "./assets/arcademachine.gif";
+import { clamp } from "./utils";
 
 // animations
 const arcadeSequence = [
@@ -25,39 +26,49 @@ const titleSequence = [
 ];
 
 function App() {
+  const handleScrollAnimations = useCallback(async (event) => {
+    const scrolled = window.scrollY;
+    const scrollTop = scrolled + 100;
+    animate(
+      ".arcadeMachine",
+      {
+        width: [`${Math.max(100 - scrolled / 10, 50)}%`],
+        top: `${clamp(scrollTop, 230, 1160)}px`,
+      },
+      { duration: 0.3, easing: "ease-out" }
+    );
+  }, []);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    let observer;
+
+    let options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((section) => {
+        if (section.isIntersecting) {
+          const theme = section.target.dataset.theme;
+          document.body.setAttribute('data-theme', theme);
+        }
+      });
+    }, options);
+
+    [...sections].forEach((section) => {
+      observer.observe(section);
+    });
+  }, []);
+
   useEffect(() => {
     const entree = timeline([...arcadeSequence, ...titleSequence]);
     entree.finished.then(() => {
       window.addEventListener("scroll", handleScrollAnimations);
     });
-  }, []);
-
-  const handleScrollAnimations = async (event) => {
-    const scrolled = window.scrollY;
-
-    const arcadeAnimation = animate(
-      ".arcadeMachine",
-      {
-        transform: [`scale(${Math.max((1000 - (scrolled )) / 1000, 0.5) })`],
-      },
-      { duration: 0.5 }
-    );
-
-
-    if (scrolled > 300) {
-      animate(
-        "body",
-        { backgroundColor: "var(--color-tertiary)" },
-        { duration: 0.5 }
-      );
-    } else {
-      animate(
-        "body",
-        { backgroundColor: "var(--color-primary)" },
-        { duration: 0.5 }
-      );
-    }
-  };
+  }, [handleScrollAnimations]);
 
   return (
     <div className="App">
@@ -76,25 +87,38 @@ function App() {
       </header>
       <main>
         <div className="container">
-          <h1 className="title">
-            <span>A</span>
-            <span>r</span>
-            <span>c</span>
-            <span>a</span>
-            <span>d</span>
-            <span>e</span>
-            <span>&nbsp; </span>
-            <span>C</span>
-            <span>l</span>
-            <span>u</span>
-            <span>b</span>
-          </h1>
           <div
             className="arcadeMachine"
             style={{ backgroundImage: `url(${gif})` }}
           ></div>
-          <section>
-            <h2>Arcade club, a place for fun and good vibes, diner and a collection of vintage games.</h2>
+          <section data-theme="primary">
+            <h1 className="title">
+              <span>A</span>
+              <span>r</span>
+              <span>c</span>
+              <span>a</span>
+              <span>d</span>
+              <span>e</span>
+              <span>&nbsp; </span>
+              <span>C</span>
+              <span>l</span>
+              <span>u</span>
+              <span>b</span>
+            </h1>
+          </section>
+          <section data-theme="tertiary">
+            <div className="intro">
+              <h2>
+                Arcade club, a place for fun and good vibes, diner and a
+                collection of vintage games.
+              </h2>
+              <div className="buttonWrap">
+                <button>Let's play!</button>
+              </div>
+            </div>
+          </section>
+          <section data-theme="secondary">
+            <h2>Schedule</h2>
           </section>
         </div>
       </main>
