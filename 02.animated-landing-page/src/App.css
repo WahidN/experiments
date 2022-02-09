@@ -16,9 +16,12 @@
   font-weight: 400;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&family=Ubuntu:wght@700&family=Yeseva+One&display=swap');
+
 
 :root {
-  --font-family: "Beatrice Display", cursive;
+  --font-heading: "Beatrice Display", cursive;
+  --font-body: 'Ubuntu', sans-serif;
 
   --color-primary: #7d2ef8;
   --color-secondary: #fcfb16;
@@ -33,16 +36,26 @@ body,
 html {
   padding: 0;
   margin: 0;
-  font-family: var(--font-family);
+  font-family: var(--font-body);
   background-color: var(--color-primary);
   overflow-x: hidden;
   scroll-snap-type: y proximity;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
 }
 
 header,
 main {
   display: flex;
   justify-content: center;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 2rem;
 }
 
 .container {
@@ -56,7 +69,7 @@ header {
   top: 0px;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 9;
 }
 
 header nav {
@@ -119,7 +132,7 @@ section:last-of-type {
 .arcadeMachine {
   z-index: 10;
   position: absolute;
-  top: 230px;
+  top: 250px;
   right: 0;
   background-color: #1c1b2a;
   border-radius: 50px;
@@ -138,11 +151,11 @@ section:last-of-type {
   height: 100%;
 }
 
-.intro h2 {
+.intro p {
   flex: 1;
-  max-width: 50%;
-  font-size: 34px;
-  margin-top: 100px;
+  max-width: 45%;
+  font-size: 42px;
+  margin-top: 120px;
 }
 
 .buttonWrap {
@@ -157,27 +170,36 @@ section:last-of-type {
   background-color: var(--color-secondary);
   padding: 18px 64px;
   font-weight: 600;
+  font-family: var(--font-heading);
   font-size: 22px;
   border: none;
   color: var(--color-dark-green);
 }
 
-.buttonWrap button::before {
+.buttonWrap button::before,
+.buttonWrap button::after {
   content: '';
   display: block;
   position: absolute;
+  background-color: var(--color-secondary);
+    height: 40px;
+  width: 100%;
+}
+
+.buttonWrap button::before {
   top: -40px;
   left: 0;
-  background-color: var(--color-secondary);
-  height: 40px;
-  width: 100%;
-  border-radius: 50% 50% 0 0;
+}
+
+.buttonWrap button::after {
+  bottom: -40px;
+  left: 0;
 }
 
 body[data-theme="primary"] {
   background-color: var(--color-primary);
   transition: backgroundColor 0.5s ease-out;
-  color: white;
+  color: var(--color-secondary);
 }
 
 body[data-theme="tertiary"] {

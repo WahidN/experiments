@@ -33,7 +33,7 @@ function App() {
       ".arcadeMachine",
       {
         width: [`${Math.max(100 - scrolled / 10, 50)}%`],
-        top: `${clamp(scrollTop, 230, 1160)}px`,
+        top: `${clamp(scrollTop, 250, 1160)}px`,
       },
       { duration: 0.3, easing: "ease-out" }
     );
@@ -75,7 +75,7 @@ function App() {
       <header className="App-header">
         <div className="container">
           <nav>
-            <div>Arcade</div>
+            <div className="logo">Arcade</div>
             <ul>
               <li>About</li>
               <li>Schedule</li>
@@ -108,10 +108,10 @@ function App() {
           </section>
           <section data-theme="tertiary">
             <div className="intro">
-              <h2>
+              <p>
                 Arcade club, a place for fun and good vibes, diner and a
                 collection of vintage games.
-              </h2>
+              </p>
               <div className="buttonWrap">
                 <button>Let's play!</button>
               </div>
