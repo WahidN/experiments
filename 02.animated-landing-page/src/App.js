@@ -26,6 +26,58 @@ const titleSequence = [
 ];
 
 function App() {
+   useEffect(() => {
+     const sections = document.querySelectorAll("section");
+     let observer;
+
+     let options = {
+       root: null,
+       rootMargin: "0px",
+       threshold: 0.5,
+     };
+
+     observer = new IntersectionObserver((entries) => {
+       entries.forEach((section) => {
+         if (section.isIntersecting) {
+           const theme = section.target.dataset.theme;
+           document.body.setAttribute("data-theme", theme);
+         }
+       });
+     }, options);
+
+     [...sections].forEach((section) => {
+       observer.observe(section);
+     });
+   }, []);
+
+   useEffect(() => {
+     const elements = document.querySelectorAll("[data-animation='fadeInUp']");
+     let observer;
+
+     let options = {
+       root: null,
+       rootMargin: "0px",
+       threshold: 0.5,
+     };
+
+     observer = new IntersectionObserver((entries) => {
+       entries.forEach((el) => {
+         if (el.isIntersecting) {
+           animate(
+             el.target,
+             { opacity: 1, transform: "translateY(0)" },
+             { at: 1, duration: 0.8, delay: stagger(0.9) }
+           );
+         }
+       });
+     }, options);
+
+     [...elements].forEach((el) => {
+       observer.observe(el);
+     });
+   }, []);
+
+      
   const handleScrollAnimations = useCallback(async (event) => {
     const scrolled = window.scrollY;
     const scrollTop = scrolled + 100;
@@ -33,42 +85,20 @@ function App() {
       ".arcadeMachine",
       {
         width: [`${Math.max(100 - scrolled / 10, 50)}%`],
-        top: `${clamp(scrollTop, 250, 1160)}px`,
+        top: `${clamp(scrollTop, 250, 1150)}px`,
       },
       { duration: 0.3, easing: "ease-out" }
     );
   }, []);
 
-  useEffect(() => {
-    const sections = document.querySelectorAll("section");
-    let observer;
 
-    let options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
-
-    observer = new IntersectionObserver((entries) => {
-      entries.forEach((section) => {
-        if (section.isIntersecting) {
-          const theme = section.target.dataset.theme;
-          document.body.setAttribute('data-theme', theme);
-        }
-      });
-    }, options);
-
-    [...sections].forEach((section) => {
-      observer.observe(section);
-    });
-  }, []);
-
-  useEffect(() => {
-    const entree = timeline([...arcadeSequence, ...titleSequence]);
-    entree.finished.then(() => {
-      window.addEventListener("scroll", handleScrollAnimations);
-    });
-  }, [handleScrollAnimations]);
+   useEffect(() => {
+     const entree = timeline([...arcadeSequence, ...titleSequence]);
+     entree.finished.then(() => {
+       document.querySelector('main').style.overflow = 'hidden';
+       window.addEventListener("scroll", handleScrollAnimations);
+     });
+   }, [handleScrollAnimations]);
 
   return (
     <div className="App">
@@ -108,7 +138,7 @@ function App() {
           </section>
           <section data-theme="tertiary">
             <div className="intro">
-              <p>
+              <p data-animation="fadeInUp">
                 Arcade club, a place for fun and good vibes, diner and a
                 collection of vintage games.
               </p>
@@ -116,11 +146,11 @@ function App() {
                 <button>Let's play!</button>
               </div>
               <div className="numbers">
-                <div className="number">
+                <div className="number" data-animation="fadeInUp">
                   <h2 className="bigTitle">25</h2>
                   <span>Arcade Machines</span>
                 </div>
-                <div className="number">
+                <div className="number" data-animation="fadeInUp">
                   <h2 className="bigTitle">15</h2>
                   <span>Pinball Machines</span>
                 </div>
@@ -128,39 +158,42 @@ function App() {
             </div>
           </section>
           <section data-theme="secondary">
+            <h2 className="bigTitle" data-animation="fadeInUp">
+              Schedule
+            </h2>
             <ul className="calendar">
-              <li>
+              <li data-animation="fadeInUp">
                 <span>Mo</span>
                 <span>30.08</span>
               </li>
-              <li>
+              <li data-animation="fadeInUp">
                 <span>Tu</span>
                 <span>31.08</span>
               </li>
-              <li>
+              <li data-animation="fadeInUp">
                 <span>We</span>
                 <span>30.08</span>
               </li>
-              <li>
+              <li data-animation="fadeInUp">
                 <span>Th</span>
                 <span>01.09</span>
               </li>
-              <li>
+              <li data-animation="fadeInUp">
                 <span>Fr</span>
                 <span>02.09</span>
               </li>
-              <li>
+              <li data-animation="fadeInUp">
                 <span>Sa</span>
                 <span>03.09</span>
               </li>
-              <li>
+              <li data-animation="fadeInUp">
                 <span>Su</span>
                 <span>04.09</span>
               </li>
             </ul>
-            <h2 className="bigTitle">Schedule</h2>
+
             <div className="grid">
-              <div className="item">
+              <div className="item" data-animation="fadeInUp">
                 <div className="itemImage">
                   <img
                     src="https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80"
@@ -172,10 +205,12 @@ function App() {
                     <span>Mon</span>
                     <span>30</span>
                   </div>
-                    <h3 className="itemTitle">Belles & Chimes Women's Pinball Meetup</h3>
+                  <h3 className="itemTitle">
+                    Belles & Chimes Women's Pinball Meetup
+                  </h3>
                 </div>
               </div>
-              <div className="item">
+              <div className="item" data-animation="fadeInUp">
                 <div className="itemImage">
                   <img
                     src="https://images.unsplash.com/photo-1625805866449-3589fe3f71a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3987&q=80"
@@ -190,7 +225,7 @@ function App() {
                   <h3 className="itemTitle">Vintage Gaming Night</h3>
                 </div>
               </div>
-              <div className="item">
+              <div className="item" data-animation="fadeInUp">
                 <div className="itemImage">
                   <img
                     src="https://images.unsplash.com/photo-1627845885979-1a274684a4ac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fGFyY2FkZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60"
