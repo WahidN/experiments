@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import { timeline, stagger, animate } from "motion";
 import gif from "./assets/arcademachine.gif";
 import { clamp } from "./utils";
@@ -26,6 +26,9 @@ const titleSequence = [
 ];
 
 function App() {
+  const secondSection = useRef(null);
+
+
    useEffect(() => {
      const sections = document.querySelectorAll("section");
      let observer;
@@ -57,7 +60,7 @@ function App() {
      let options = {
        root: null,
        rootMargin: "0px",
-       threshold: 0.5,
+       threshold: 0.25,
      };
 
      observer = new IntersectionObserver((entries) => {
@@ -80,12 +83,12 @@ function App() {
       
   const handleScrollAnimations = useCallback(async (event) => {
     const scrolled = window.scrollY;
-    const scrollTop = scrolled + 100;
+    const bottomOfSection = secondSection.current.scrollHeight;
     animate(
       ".arcadeMachine",
       {
         width: [`${Math.max(100 - scrolled / 10, 50)}%`],
-        top: `${clamp(scrollTop, 250, 1150)}px`,
+        top: `${clamp(scrolled, 250, bottomOfSection)}px`,
       },
       { duration: 0.3, easing: "ease-out" }
     );
@@ -136,7 +139,7 @@ function App() {
               <span>b</span>
             </h1>
           </section>
-          <section data-theme="tertiary">
+          <section data-theme="tertiary" ref={secondSection}>
             <div className="intro">
               <p data-animation="fadeInUp">
                 Arcade club, a place for fun and good vibes, diner and a
