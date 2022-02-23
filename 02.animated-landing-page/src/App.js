@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import { timeline, stagger, animate } from "motion";
 import gif from "./assets/arcademachine.gif";
 import { clamp } from "./utils";
@@ -27,81 +27,88 @@ const titleSequence = [
 
 function App() {
   const secondSection = useRef(null);
+  const [secondSectionBottom, setSecondSectionBottom] = useState();
 
+  useEffect(() => {
+    setSecondSectionBottom(secondSection.current.scrollHeight);
+  }, [secondSection]);
 
-   useEffect(() => {
-     const sections = document.querySelectorAll("section");
-     let observer;
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    let observer;
 
-     let options = {
-       root: null,
-       rootMargin: "0px",
-       threshold: 0.5,
-     };
+    let options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
 
-     observer = new IntersectionObserver((entries) => {
-       entries.forEach((section) => {
-         if (section.isIntersecting) {
-           const theme = section.target.dataset.theme;
-           document.body.setAttribute("data-theme", theme);
-         }
-       });
-     }, options);
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((section) => {
+        if (section.isIntersecting) {
+          const theme = section.target.dataset.theme;
+          document.body.setAttribute("data-theme", theme);
+        }
+      });
+    }, options);
 
-     [...sections].forEach((section) => {
-       observer.observe(section);
-     });
-   }, []);
-
-   useEffect(() => {
-     const elements = document.querySelectorAll("[data-animation='fadeInUp']");
-     let observer;
-
-     let options = {
-       root: null,
-       rootMargin: "0px",
-       threshold: 0.25,
-     };
-
-     observer = new IntersectionObserver((entries) => {
-       entries.forEach((el) => {
-         if (el.isIntersecting) {
-           animate(
-             el.target,
-             { opacity: 1, transform: "translateY(0)" },
-             { at: 1, duration: 0.8, delay: stagger(0.9) }
-           );
-         }
-       });
-     }, options);
-
-     [...elements].forEach((el) => {
-       observer.observe(el);
-     });
-   }, []);
-
-      
-  const handleScrollAnimations = useCallback(async (event) => {
-    const scrolled = window.scrollY;
-    const bottomOfSection = secondSection.current.scrollHeight;
-    animate(
-      ".arcadeMachine",
-      {
-        width: [`${Math.max(100 - scrolled / 10, 50)}%`],
-        top: `${clamp(scrolled, 250, bottomOfSection)}px`,
-      },
-      { duration: 0.3, easing: "ease-out" }
-    );
+    [...sections].forEach((section) => {
+      observer.observe(section);
+    });
   }, []);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll(".animationWrapper");
 
-   useEffect(() => {
-     const entree = timeline([...arcadeSequence, ...titleSequence]);
-     entree.finished.then(() => {
-       document.querySelector('main').style.overflow = 'hidden';
-       window.addEventListener("scroll", handleScrollAnimations);
-     });
-   }, [handleScrollAnimations]);
+    let observer;
+
+    let options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1,
+    };
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((el) => {
+        if (el.isIntersecting) {
+          const animationElements = el.target.querySelectorAll(
+            "[data-animation='fadeInUp']"
+          );
+          animate(
+            animationElements,
+            { opacity: 1, transform: "translateY(0)" },
+            { duration: 0.3, delay: stagger(0.1) }
+          );
+        }
+      });
+    }, options);
+
+    [...elements].forEach((el) => {
+      observer.observe(el);
+    });
+  }, []);
+
+  const handleScrollAnimations = useCallback(
+    async (event) => {
+      const scrolled = window.scrollY;
+      animate(
+        ".arcadeMachine",
+        {
+          width: [`${Math.max(100 - scrolled / 10, 50)}%`],
+          top: `${clamp(scrolled, 250, secondSectionBottom)}px`,
+        },
+        { duration: 0.3, easing: "ease-out" }
+      );
+    },
+    [secondSectionBottom]
+  );
+
+  useEffect(() => {
+    const entree = timeline([...arcadeSequence, ...titleSequence]);
+    entree.finished.then(() => {
+      window.addEventListener("scroll", handleScrollAnimations);
+    });
+  }, [handleScrollAnimations]);
 
   return (
     <div className="App">
@@ -141,30 +148,38 @@ function App() {
           </section>
           <section data-theme="tertiary" ref={secondSection}>
             <div className="intro">
-              <p data-animation="fadeInUp">
-                Arcade club, a place for fun and good vibes, diner and a
-                collection of vintage games.
+              <p className="animationWrapper">
+                <span data-animation="fadeInUp">
+                  Arcade club, a place for fun and good vibes, diner and a
+                </span>
+                <span data-animation="fadeInUp">
+                  collection of vintage games.
+                </span>
               </p>
               <div className="buttonWrap">
                 <button>Let's play!</button>
               </div>
               <div className="numbers">
-                <div className="number" data-animation="fadeInUp">
-                  <h2 className="bigTitle">25</h2>
-                  <span>Arcade Machines</span>
-                </div>
-                <div className="number" data-animation="fadeInUp">
-                  <h2 className="bigTitle">15</h2>
-                  <span>Pinball Machines</span>
+                <div className="animationWrapper">
+                  <div className="number" data-animation="fadeInUp">
+                    <h2 className="bigTitle">25</h2>
+                    <span>Arcade Machines</span>
+                  </div>
+                  <div className="number" data-animation="fadeInUp">
+                    <h2 className="bigTitle">15</h2>
+                    <span>Pinball Machines</span>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
           <section data-theme="secondary">
-            <h2 className="bigTitle" data-animation="fadeInUp">
-              Schedule
-            </h2>
-            <ul className="calendar">
+            <div className="animationWrapper">
+              <h2 className="bigTitle" data-animation="fadeInUp">
+                Schedule
+              </h2>
+            </div>
+            <ul className="calendar animationWrapper">
               <li data-animation="fadeInUp">
                 <span>Mo</span>
                 <span>30.08</span>
@@ -195,7 +210,7 @@ function App() {
               </li>
             </ul>
 
-            <div className="grid">
+            <div className="grid animationWrapper">
               <div className="item" data-animation="fadeInUp">
                 <div className="itemImage">
                   <img
