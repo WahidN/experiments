@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.01497bed.css",
+    "main.js": "/static/js/main.565a1c38.js",
+    "static/js/787.fc6062c3.chunk.js": "/static/js/787.fc6062c3.chunk.js",
+    "static/media/arcademachine.gif": "/static/media/arcademachine.0f4eb243501725dd3415.gif",
+    "static/media/BeatriceDisplayBold.otf": "/static/media/BeatriceDisplayBold.b72374b854638bc01fc5.otf",
+    "static/media/BeatriceDisplayRegular.otf": "/static/media/BeatriceDisplayRegular.1fde83e088bb50b3a743.otf",
+    "static/media/BeatriceDisplayBlack.otf": "/static/media/BeatriceDisplayBlack.d409efb5d98659128267.otf",
+    "index.html": "/index.html",
+    "main.01497bed.css.map": "/static/css/main.01497bed.css.map",
+    "main.565a1c38.js.map": "/static/js/main.565a1c38.js.map",
+    "787.fc6062c3.chunk.js.map": "/static/js/787.fc6062c3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.01497bed.css",
+    "static/js/main.565a1c38.js"
+  ]
+}
