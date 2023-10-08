@@ -1,9 +1,21 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import type { Character } from "../../types";
+import CharacterCard from "../components/CharacterCard.astro";
+import Layout from "../layouts/Layout.astro";
+
+const data = await fetch("https://rickandmortyapi.com/api/character");
+const characters: Character[] = await data.json().then((res) => res.results);
 ---
 
-<Layout title="Welcome to Astro.">
-		
+
+<Layout title="Rick and Morty">
+  <div class="flex gap-3 items-end">
+    <h1 class="text-4xl font-bold">Rick and Morty</h1>
+  </div>
+  <h3 class="text-xl text-gray-500">
+    Wobelubadubdub! Here are some of the characters from the show.
+  </h3>
+  <div class="flex flex-wrap justify-center sm:justify-normal gap-4 py-8">
+    {characters ? characters.map((char: Character) => <CharacterCard character={char} />) : <p>Loading...</p>}
+  </div>
 </Layout>
-
-

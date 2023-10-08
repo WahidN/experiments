@@ -1,0 +1,28 @@
+---import type { Character } from "../../types";
+
+
+const { character } = Astro.props as { character: Character };
+---
+
+<a href={`/character/${character.id}`} class="block">
+  <article
+    class="group bg-flex flex-col sm:w-60 w-72 bg-white shadow-sm rounded-lg overflow-hidden hover:shadow-xl hover:shadow-gray-100 transition-all"
+  >
+    <div class="sm:w-60 w-72 h-60 overflow-hidden">
+      <img
+        src={character.image}
+        alt={character.name}
+				transition:name={`${character.name } image`}
+        class="object-cover object-center w-full grayscale-[0.1] group-hover:grayscale-0 h-full rounded-md group-hover:scale-105 transition-all"
+      />
+    </div>
+    <div class="p-4">
+      <h3 class="font-semibold truncate" transition:name={`${character.name} title`}>
+        {character.name}
+      </h3>
+      <p class="text-gray-600 text-sm truncate" transition:name={`${character.name} description`}>
+        {character.type}
+      </p>
+    </div>
+  </article>
+</a>

@@ -1,0 +1,60 @@
+---
+import Icon from "astro-icon";
+import type { Character } from "../../../../types";
+import Layout from "../../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const data = await fetch("https://rickandmortyapi.com/api/character");
+  const characters = await data.json().then((res) => res.results);
+
+  return characters.map((character) => {
+    return {
+      params: { slug: character.id },
+      props: { character },
+    };
+  });
+}
+
+const { character } = Astro.props as { character: Character };
+---
+
+<Layout title={character.name} description={character.status}>
+  <div class="max-w-5xl mx-auto relative">
+    <a
+      href="/"
+      class="absolute xl:-left-14 top-8 xl:-top-1 xl:bg-none bg-gradient-to-br from-gray-100 rounded p-2 z-10"
+      ><Icon name="mdi:chevron-left" class="h-6 w-6" /></a
+    >
+    <div class="flex gap-2 pb-2 items-center text-gray-500">
+      <a class="after:content-['/'] after:pl-2 capitalize" href="/">home</a>
+      <span>{character.name}</span>
+    </div>
+    <div class="flex flex-col md:flex-row sm sm:gap-8">
+      <div class="max-w-[450px] w-full h-full max-h-[450px]">
+        <img
+          src={character.image}
+          alt={character.name}
+          class="w-full h-full object-cover rounded-xl shadow-2xl shadow-gray-200 border-b"
+           transition:name={`${character.name } image`} 
+        />
+      </div>
+      <article class="py-4 flex justify-between flex-col">
+        <div>
+          <h1 class="text-3xl sm:text-5xl font-bold animate-in" transition:name={`${character.name} title`}
+>
+            {character.name}
+          </h1>
+          
+          <div class="text-3xl font-semibold" transition:name={`${character.name} price`}>
+            {character.gender}
+          </div>
+          <p class="max-w-sm py-4 text-lg" transition:name={`${character.name} description`}
+>
+            {character.species}
+          </p>
+        </div>
+      </article>
+    </div>
+    
+  </div>
+</Layout>
